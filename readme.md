@@ -2,4 +2,4 @@
 ## Completed by Cheuk Wing Chan, 301264973
 
 ### Run the project
-Use command ```node app.js``` to start the server.
+Use command ```npm start``` to start the server.
