@@ -2,6 +2,7 @@ const { Student, StudentSchema } = require('../models/student.model');
 const requiredAttributes = Object.keys(StudentSchema.paths).filter(key => StudentSchema.paths[key].isRequired);
 
 exports.createStudent = async (req, res) => {
+    // Check whether all the required attributes are included in the request.
     for (let requiredAttr of requiredAttributes) {
         if (!req.body[requiredAttr]) {
             return res.status(400).send({
@@ -37,6 +38,7 @@ exports.getAllStudents = async (req, res) => {
 }
 
 exports.getStudentById = async (req, res) => {
+    // Check whether a student ID is provided for the request.
     const studentId = req.params.id;
     if (!studentId) res.status(400).send({ message: 'No Student ID supplied.'});
 
@@ -52,8 +54,11 @@ exports.getStudentById = async (req, res) => {
 }
 
 exports.updateStudent = async (req, res) => {
+    // Check whether a student ID is provided for the request.
     const studentId = req.params.id;
     if (!studentId) return res.status(400).send({ message: 'No Student ID supplied.'});
+
+    // Check whether all the required attributes are included in the request.
     for (let requiredAttr of requiredAttributes) {
         if (!req.body[requiredAttr]) {
             return res.status(400).send({
@@ -80,6 +85,7 @@ exports.updateStudent = async (req, res) => {
 }
 
 exports.deleteStudent = async (req, res) => {
+    // Check whether a student ID is provided for the request.
     const studentId = req.params.id;
     if (!studentId) return res.status(400).send({ message: 'No Student ID supplied.'});
 
@@ -91,6 +97,5 @@ exports.deleteStudent = async (req, res) => {
     }
 
     if (!student) return res.status(404).send({ message: 'Student not found.'});
-
     res.status(200).send({ message: 'The student has been deleted.' });
 }
